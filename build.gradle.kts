@@ -43,3 +43,12 @@ kotlin {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+tasks.bootJar {
+	enabled = true
+}
+
+tasks.jar {
+	enabled = false
+}
+

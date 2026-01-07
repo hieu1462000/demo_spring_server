@@ -1,10 +1,12 @@
 # =========================
 # Stage 1: Build
 # =========================
-FROM gradle:8.5-jdk21 AS builder
+FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
+
 COPY . .
-RUN gradle bootJar --no-daemon
+RUN chmod +x gradlew
+RUN ./gradlew clean bootJar --no-daemon
 
 # =========================
 # Stage 2: Run
@@ -12,9 +14,9 @@ RUN gradle bootJar --no-daemon
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
+# Copy đúng bootJar (KHÔNG phải plain)
 COPY --from=builder /app/build/libs/*.jar app.jar
 
-# Render cung cấp PORT
 ENV PORT=8080
 EXPOSE 8080
 
