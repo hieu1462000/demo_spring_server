@@ -1,6 +1,7 @@
 package com.example.demo.key_provider
 
-import com.cshield.sdk.key_provider.PublicKeyProvider
+
+import com.cshield.sdk.api.key_provider.client_public_key.ClientPublicKeyProvider
 import java.security.KeyFactory
 import java.security.PublicKey
 import java.security.spec.X509EncodedKeySpec
@@ -8,7 +9,7 @@ import java.util.*
 
 class EnvPublicKeyProvider(
     private val envName: String
-) : PublicKeyProvider {
+) : ClientPublicKeyProvider {
 
     override fun load(): PublicKey {
         var base64 = System.getenv(envName)

@@ -1,6 +1,6 @@
 package com.example.demo.key_provider
 
-import com.cshield.sdk.key_provider.PrivateKeyProvider
+import com.cshield.sdk.api.key_provider.server_private_key.ServerPrivateKeyProvider
 import java.security.KeyFactory
 import java.security.PrivateKey
 import java.security.spec.PKCS8EncodedKeySpec
@@ -9,7 +9,7 @@ import java.util.*
 
 class EnvPrivateKeyProvider(
     private val envName: String
-) : PrivateKeyProvider {
+) : ServerPrivateKeyProvider {
 
     override fun load(): PrivateKey {
         var base64 = System.getenv(envName)
