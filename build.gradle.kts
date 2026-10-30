@@ -1,7 +1,6 @@
 plugins {
-	kotlin("jvm") version "2.2.21"
-	kotlin("plugin.spring") version "2.2.21"
-	id("org.springframework.boot") version "4.0.1"
+	java
+	id("org.springframework.boot") version "3.5.16"
 	id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -20,24 +19,11 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("tools.jackson.module:jackson-module-kotlin")
-	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation(files(findProperty("cshieldSdkJar") ?: "libs/cshield-sdk-2.0.0.jar"))
+	implementation("org.bouncycastle:bcprov-jdk18on:1.78")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-
-	runtimeOnly("com.h2database:h2")
-
-	implementation(files("libs/cshield-sdk.jar"))
-}
-
-kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
-	}
 }
 
 tasks.withType<Test> {
@@ -51,4 +37,3 @@ tasks.bootJar {
 tasks.jar {
 	enabled = false
 }
-

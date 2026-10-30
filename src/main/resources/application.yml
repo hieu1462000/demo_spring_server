@@ -1,26 +1,23 @@
 server:
   port: ${PORT:8080}
   address: 0.0.0.0
+  tomcat:
+    relaxed-query-chars: "[,]"
 
 spring:
   application:
-    name: demo-server-kotlin
+    name: demo-server
 
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: ""
-
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
-      properties:
-        hibernate:
-          format_sql: true
-
-    h2:
-      console:
-        enabled: true
-        path: /h2
+c-shield:
+  server-private-key: file:${CSHIELD_PRIVATE_KEY_FILE}
+  request-timeout-seconds: 30
+  min-trust-level: ${CSHIELD_MIN_TRUST_LEVEL:L1}
+  realm:
+    customer-code: ${CSHIELD_CUSTOMER_CODE:}
+    application-id: ${CSHIELD_APPLICATION_ID:}
+    environment: ${CSHIELD_ENVIRONMENT:}
+  routes:
+    - path: /verify-otp
+      methods: [POST]
+    - path: /verify-otp/hello
+      methods: [GET]
