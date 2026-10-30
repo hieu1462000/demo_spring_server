@@ -9,15 +9,19 @@ spring:
     name: demo-server
 
 c-shield:
-  server-private-key: file:${CSHIELD_PRIVATE_KEY_FILE}
-  request-timeout-seconds: 30
+  request-timeout-seconds: 60
   min-trust-level: ${CSHIELD_MIN_TRUST_LEVEL:L1}
   realm:
-    customer-code: ${CSHIELD_CUSTOMER_CODE:}
-    application-id: ${CSHIELD_APPLICATION_ID:}
-    environment: ${CSHIELD_ENVIRONMENT:}
+    customer-code: ${CSHIELD_CUSTOMER_CODE:CMCCS}
+    application-id: ${CSHIELD_APPLICATION_ID:cshield-embedded-sample}
+    environment: DEV
   routes:
     - path: /verify-otp
       methods: [POST]
-    - path: /verify-otp/hello
-      methods: [GET]
+    - path: /payment
+      methods: [POST]
+      min-trust-level: ${CSHIELD_SENSITIVE_MIN_TRUST:L4}
+    - path: /transfer
+      methods: [POST]
+      min-trust-level: ${CSHIELD_SENSITIVE_MIN_TRUST:L4}
+      max-trust-age-seconds: ${CSHIELD_SENSITIVE_MAX_AGE:300}
